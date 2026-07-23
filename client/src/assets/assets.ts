@@ -1,0 +1,391 @@
+import hero_bg_img from "./hero_bg_img.png";
+import default_restaurant_img from "./default_restaurant_Img.jpeg";
+import membership_section_img from "./membership_section_img.png";
+import {
+    BeefIcon,
+    Building2Icon,
+    CroissantIcon,
+    FishIcon,
+    GlobeIcon,
+    LeafIcon,
+    MailIcon,
+    Share2Icon,
+    UtensilsCrossedIcon,
+} from "lucide-react";
+
+export const assets = {
+    hero_bg_img,
+    default_restaurant_img,
+    membership_section_img,
+};
+
+export const dummyReviews = [
+    {
+        _id: "dummy-rev-1",
+        userName: "Emily Watson",
+        rating: 5,
+        comment: "Absolutely phenomenal experience! The ambiance was perfect, and the food was cooked to perfection. A must-visit!",
+        visitedDate: "2026-06-10T12:00:00.000Z",
+        createdAt: "2026-06-10T12:00:00.000Z",
+    },
+    {
+        _id: "dummy-rev-2",
+        userName: "Marcus Vance",
+        rating: 4,
+        comment:
+            "The signature dishes were incredible and the staff was extremely attentive. Will definitely come back for another dinner.",
+        visitedDate: "2026-06-08T18:30:00.000Z",
+        createdAt: "2026-06-08T18:30:00.000Z",
+    },
+    {
+        _id: "dummy-rev-3",
+        userName: "Sophia Loren",
+        rating: 5,
+        comment: "Every course of the tasting menu was a delightful surprise. The pairings were exquisite. High-end dining at its finest.",
+        visitedDate: "2026-06-05T20:15:00.000Z",
+        createdAt: "2026-06-05T20:15:00.000Z",
+    },
+];
+
+export const dummyRating = 4.8;
+export const dummyReviewCount = 124;
+
+export const footerSections = [
+    {
+        title: "COMPANY",
+        links: [
+            { label: "About Us", path: "#" },
+            { label: "Partner with Us", path: "#" },
+            { label: "Careers", path: "#" },
+        ],
+    },
+    {
+        title: "LEGAL",
+        links: [
+            { label: "Terms of Service", path: "#" },
+            { label: "Privacy Policy", path: "#" },
+            { label: "Cookies", path: "#" },
+        ],
+    },
+];
+
+export const socialLinks = [
+    { icon: GlobeIcon, href: "#" },
+    { icon: Share2Icon, href: "#" },
+    { icon: MailIcon, href: "#" },
+];
+
+export const bottomLinks = [
+    { label: "Terms", path: "#" },
+    { label: "Privacy", path: "#" },
+];
+
+export const cuisines = [
+    { name: "Italian", icon: UtensilsCrossedIcon, label: "ITALIAN" },
+    { name: "Japanese", icon: FishIcon, label: "SUSHI" },
+    { name: "French", icon: CroissantIcon, label: "FRENCH" },
+    { name: "Rooftop", icon: Building2Icon, label: "ROOFTOP" },
+    { name: "Steakhouse", icon: BeefIcon, label: "STEAKHOUSE" },
+    { name: "Vegetarian", icon: LeafIcon, label: "VEGETARIAN" },
+];
+
+export const dummyUser = {
+    _id: "6a32a3c50e88c825d8873f75",
+    name: "Alex Mercer",
+    email: "alex@example.com",
+    phone: "+01234567788",
+    role: "owner",
+    token: "xyz",
+    createdAt: "2026-06-17T13:40:21.669Z",
+    updatedAt: "2026-06-17T13:40:21.669Z",
+};
+
+export const dummyRestaurant = [
+    {
+        _id: "6a32a3c50e88c825d8873f7d",
+        name: "Oja Lagos",
+        slug: "oja-lagos",
+        description:
+            "A contemporary celebration of Nigerian cuisine in the heart of Lekki Phase 1. Oja Lagos blends bold West African flavors with elegant presentation and warm hospitality, offering a vibrant dining experience centered on fresh seafood, classic suya, and signature jollof rice.",
+        cuisine: "West African",
+        priceRange: "$$$",
+        rating: 4.9,
+        reviewCount: 88,
+        location: "Lekki, Lagos",
+        address: "35 Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
+        image: "/restaurant_5.png",
+        chef: "Adaobi Okafor",
+        tags: ["Nigerian", "Modern African", "Seafood", "Signature Jollof"],
+        availableSlots: ["18:00", "19:00", "20:00", "21:00", "22:00"],
+        featured: true,
+        exclusive: false,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 45,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f7a",
+        name: "The Burgundry by Chef Stone",
+        slug: "the-burgundry",
+        description:
+            "An elegant modern French dining destination from Chef Stone. The Burgundry blends refined Burgundy-inspired cuisine with luxurious presentation and a warm, intimate atmosphere, highlighting premium local ingredients and sophisticated wine pairings.",
+        cuisine: "Contemporary French",
+        priceRange: "$$$$",
+        rating: 4.7,
+        reviewCount: 205,
+        location: "Central Area, Abuja",
+        address: "Central Area, Abuja, Nigeria",
+        image: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnywk-Nn65nrFearAljkv0_pEtezhZURXO89pAU1_6XStjf6pxNkl8p9DyXKMeFJxFoJKrhacKIJRUqnuBaUcGmtFsBPBEXFxEF0b6KPIOeCuJxkUoJqc4Fgi9MfwC51o2ogMw2pA=s1360-w1360-h1020-rw",
+        chef: "Chef Stone",
+        tags: ["French", "Fine Dining", "Wine Pairing", "Chef's Tasting"],
+        availableSlots: ["12:00", "13:00", "17:00", "18:00", "19:00", "20:00", "21:00"],
+        featured: true,
+        exclusive: false,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 30,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f79",
+        name: "CILANTRO ABUJA",
+        slug: "cilantro-abuja",
+        description:
+            "A luxurious fusion of international fine dining and Nigerian hospitality. CILANTRO ABUJA showcases Chef Stone's signature tasting menu in a sleek, modern space located in the heart of Maitama, Abuja.",
+        cuisine: "Contemporary International",
+        priceRange: "$$$$",
+        rating: 4.8,
+        reviewCount: 92,
+        location: "Maitama, Abuja",
+        address: "Maitama, Abuja, Nigeria",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/6d/9f/e3/nature-and-fine-dining.jpg?w=1100&h=-1&s=1",
+        chef: "Chef Stone",
+        tags: ["Fine Dining", "Signature Tasting", "Modern Elegance", "Global Flavors"],
+        availableSlots: ["18:00", "20:30"],
+        featured: true,
+        exclusive: true,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 25,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f7c",
+        name: "Above Lifestyle",
+        slug: "above-lifestyle",
+        description:
+            "Above Lifestyle brings a luxury lounge and dining experience to Lekki, combining modern continental plates with relaxed coastal vibes. Expect elevated small plates, signature cocktails, and panoramic views.",
+        cuisine: "Contemporary",
+        priceRange: "$$$",
+        rating: 4.8,
+        reviewCount: 110,
+        location: "Lekki, Lagos",
+        address: "Lekki, Lagos, Nigeria",
+        image: "https://abovelifestyle.com/lekki/wp-content/uploads/2025/03/Untitled-design-69.jpg",
+        chef: "Executive Chef",
+        tags: ["Lounge", "Contemporary", "Coastal", "Cocktails"],
+        availableSlots: ["11:30", "13:00", "14:30", "17:30", "19:00", "20:30"],
+        featured: false,
+        exclusive: false,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 40,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f7b",
+        name: "Kapadoccia aka The Cave",
+        slug: "kapadoccia-the-cave",
+        description:
+            "Kapadoccia aka The Cave offers an immersive dining experience inspired by Anatolian cave restaurants — now reimagined for FCT Abuja with rustic stone interiors, charcoal-fired specialties, and intimate private dining caves.",
+        cuisine: "Mediterranean",
+        priceRange: "$$$$",
+        rating: 4.6,
+        reviewCount: 142,
+        location: "FCT Abuja",
+        address: "FCT Abuja, Nigeria",
+        image: "https://media-cdn.tripadvisor.com/media/photo-s/2a/52/ad/67/inside-kapadoccia-aka.jpg",
+        chef: "Executive Chef",
+        tags: ["Charcoal Grill", "Cave Dining", "Mediterranean", "Private Dining"],
+        availableSlots: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
+        featured: false,
+        exclusive: false,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 35,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f78",
+        name: "SEE",
+        slug: "see",
+        description:
+            "SEE brings contemporary Japanese dining to the city with refined omakase courses, seasonal ingredients, and an elegant, minimal dining room.",
+        cuisine: "Japanese",
+        priceRange: "$$$$",
+        rating: 4.9,
+        reviewCount: 124,
+        location: "Lagos, Nigeria",
+        address: "Lagos, Nigeria",
+        image: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkThE-DutGs9T-at8vwzzMIOSKy6jNUg0tdC3FPJofJL3ILmTyGgSC6KkTlTROYk_YQNfs-isX1WtQX9soyKIEl5OwA6BKUVvh2xX5fNLzrlpsrxKwM27CwZR9oN5ZHADm50ACY=s1360-w1360-h1020-rw",
+        chef: "Executive Chef",
+        tags: ["Omakase", "Japanese", "Fine Dining", "Seasonal"],
+        availableSlots: ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"],
+        featured: true,
+        exclusive: true,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "approved",
+        totalSeats: 20,
+        createdAt: "2026-06-17T13:40:21.827Z",
+        updatedAt: "2026-06-17T13:40:21.827Z",
+    },
+    {
+        _id: "6a32a3c50e88c825d8873f7d",
+        name: "Walis Suites",
+        slug: "walis-suites",
+        description:
+            "Walis Suites offers refined hotel dining on Monrovia Street, Abuja — combining elegant continental dishes with attentive service in a sophisticated suite-style setting.",
+        cuisine: "Contemporary",
+        priceRange: "$$$",
+        rating: 4.9,
+        reviewCount: 88,
+        location: "Monrovia St, Abuja",
+        address: "Monrovia Street, Abuja, Nigeria",
+        image: "https://q-xx.bstatic.com/xdata/images/hotel/840x460/424067517.jpg?k=cb4a589dc8ad1e4123425c9c1dd9832a127483b9321e0f67b4e235c8f352969e&o=&a=1925256",
+        chef: "Executive Chef",
+        tags: ["Hotel Dining", "Continental", "Suites", "Fine Service"],
+        availableSlots: ["18:00", "19:00", "20:00", "21:00", "22:00"],
+        featured: true,
+        exclusive: false,
+        owner: "6a32a3c50e88c825d8873f77",
+        status: "pending",
+        totalSeats: 45,
+        createdAt: "2026-06-17T13:40:21.828Z",
+        updatedAt: "2026-06-17T13:40:21.828Z",
+    },
+];
+
+export const dummyAvailability = [
+    { time: "18:00", availableSeats: 45, isAvailable: true },
+    { time: "19:00", availableSeats: 45, isAvailable: true },
+    { time: "20:00", availableSeats: 45, isAvailable: true },
+    { time: "21:00", availableSeats: 45, isAvailable: true },
+    { time: "22:00", availableSeats: 45, isAvailable: true },
+];
+
+export const dummyBookingData = {
+    user: "6a32a3c50e88c825d8873f75",
+    restaurant: {
+        _id: "6a32a3c50e88c825d8873f7d",
+        name: "Oja Lagos",
+        location: "Lekki, Lagos",
+        address: "35 Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
+        image: "/restaurant_5.png",
+    },
+    date: "2026-06-25T00:00:00.000Z",
+    time: "22:00",
+    guests: 2,
+    occasion: "",
+    specialRequests: "",
+    status: "confirmed",
+    _id: "6a34e4caf866d0ae1e98e487",
+    createdAt: "2026-06-19T06:42:18.305Z",
+    updatedAt: "2026-06-19T06:42:18.305Z",
+    bookingId: "GR-71B448A7",
+};
+
+export const dummyMyBookingsData = [
+    {
+        _id: "6a34e4caf866d0ae1e98e487",
+        user: "6a32a3c50e88c825d8873f75",
+        restaurant: {
+            _id: "6a32a3c50e88c825d8873f7d",
+            name: "L'Essence",
+            slug: "l-essence",
+            location: "Manhattan, NY",
+            address: "115 Greenwich St, New York, NY 10006",
+            image: "/restaurant_5.png",
+        },
+        date: "2026-06-25T00:00:00.000Z",
+        time: "22:00",
+        guests: 2,
+        occasion: "",
+        specialRequests: "",
+        status: "confirmed",
+        createdAt: "2026-06-19T06:42:18.305Z",
+        updatedAt: "2026-06-19T06:42:18.305Z",
+        bookingId: "GR-71B448A7",
+    },
+    {
+        _id: "6a34e55af866d0ae1e98e489",
+        user: "6a32a3c50e88c825d8873f75",
+        restaurant: {
+            _id: "6a32a3c50e88c825d8873f7a",
+            name: "Terraza Cielo",
+            slug: "terraza-cielo",
+            location: "Manhattan, NY",
+            address: "244 Fifth Ave Rooftop, New York, NY 10001",
+            image: "/restaurant_3.jpg",
+        },
+        date: "2026-06-19T00:00:00.000Z",
+        time: "20:00",
+        guests: 2,
+        occasion: "",
+        specialRequests: "",
+        status: "confirmed",
+        createdAt: "2026-06-19T06:44:42.294Z",
+        updatedAt: "2026-06-19T06:44:42.294Z",
+        bookingId: "GR-17743C76",
+    },
+    {
+        _id: "6a34e54ff866d0ae1e98e488",
+        user: "6a32a3c50e88c825d8873f75",
+        restaurant: {
+            _id: "6a32a3c50e88c825d8873f78",
+            name: "SEE",
+            slug: "see",
+            location: "Lagos, Nigeria",
+            address: "Lagos, Nigeria",
+            image: "https://lh3.googleusercontent.com/grass-cs/ACvplmOeKjqhnaEPt8-9vx8SAVXTUQnNRagsUIemdX1pvI6cmWqgOjTIethy8x2HNEYn3JgTecgW40cBV9tT3ALJV2fCh84O1vdW-nRoMXHePwiX2iINQ_mRtUU3mgOd2YhbCRMrWSkU=s1360-w1360-h1020-rw",
+        },
+        date: "2026-06-19T00:00:00.000Z",
+        time: "19:00",
+        guests: 2,
+        occasion: "",
+        specialRequests: "",
+        status: "confirmed",
+        createdAt: "2026-06-19T06:44:31.052Z",
+        updatedAt: "2026-06-19T06:44:31.052Z",
+        bookingId: "GR-F82DDD63",
+    },
+];
+
+export const dummyAdminStats = {
+    users: { totalUsers: 1, totalOwners: 1, total: 2 },
+    restaurants: { total: 6 },
+    bookings: { total: 1 },
+    latestBookings: [
+        {
+            _id: "6a34f88580587be1dada87ba",
+            user: { _id: "6a34ef24a4d96fc34d9c906b", name: "Marc Dubois", email: "owner@example.com" },
+            restaurant: { _id: "6a34ef24a4d96fc34d9c906d", name: "CILANTRO ABUJA" },
+            date: "2026-06-19T00:00:00.000Z",
+            time: "20:30",
+            guests: 2,
+            occasion: "",
+            specialRequests: "",
+            status: "confirmed",
+            createdAt: "2026-06-19T08:06:29.155Z",
+            updatedAt: "2026-06-19T08:06:29.155Z",
+            bookingId: "GR-EB39904C",
+        },
+    ],
+};
+
+export const dummyFeaturedRestaurants = [dummyRestaurant[0], dummyRestaurant[1], dummyRestaurant[2]];

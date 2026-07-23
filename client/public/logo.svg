@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-label="KingDine logo">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="80" rx="16" fill="#081a39"/>
+  <path d="M80 18 L90 36 L102 20 L116 36 L128 18 L138 36 L152 18 L160 42 L168 18 L182 36 L196 18 L210 36 L224 18 L236 42 L248 18" fill="none" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M72 60 L91 46 L110 60" fill="none" stroke="url(#goldGrad)" stroke-width="5" stroke-linecap="round"/>
+  <text x="108" y="52" font-family="Outfit, sans-serif" font-size="30" font-weight="700" letter-spacing="1" fill="#ffffff">KING<tspan fill="url(#goldGrad)">DINE</tspan></text>
+</svg>
