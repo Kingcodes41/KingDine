@@ -103,7 +103,7 @@ export const dummyUser = {
 export const dummyRestaurant = [
     {
         _id: "6a32a3c50e88c825d8873f7d",
-        name: "Oja Lagos",
+        name: "RSVP Lagos",
         slug: "oja-lagos",
         description:
             "A contemporary celebration of Nigerian cuisine in the heart of Lekki Phase 1. Oja Lagos blends bold West African flavors with elegant presentation and warm hospitality, offering a vibrant dining experience centered on fresh seafood, classic suya, and signature jollof rice.",
@@ -283,7 +283,7 @@ export const dummyBookingData = {
     user: "6a32a3c50e88c825d8873f75",
     restaurant: {
         _id: "6a32a3c50e88c825d8873f7d",
-        name: "Oja Lagos",
+        name: "RSVP Lagos",
         location: "Lekki, Lagos",
         address: "35 Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
         image: "/restaurant_5.png",
