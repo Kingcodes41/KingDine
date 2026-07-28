@@ -1,16 +1,14 @@
-import dns from "dns";
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
-
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from 'express';
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoutes.js";
+import restaurantRouter from "./routes/restaurantRoutes.js";
 
 const app = express();
 
 // CONNECT TO MONGODB
-await connectDB()
+connectDB();
 
 
 // Middleware
@@ -24,11 +22,13 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/api/auth",authRouter);
+app.use("/api/restaurant",restaurantRouter);
+
 
 // Global Error Handler
-app.use((err: Error, req: Request, res: Response,next:NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error("Unhandled Error:", err);
-    res.status(500).json({ message:err.message ||"Internal Server Error",stack:process.env.NODE_ENV==="production"?undefined:err.stack })
+    res.status(500).json({ message: err.message || "Internal Server Error", stack: process.env.NODE_ENV === "production" ? undefined : err.stack });
 
 });
 
