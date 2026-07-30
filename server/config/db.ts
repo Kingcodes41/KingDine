@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
-    mongoose.connection.on("connected", () => console.log("MongoDB connected successfully!"));
-    mongoose.connection.on("error", (err) => console.error("Mongoose connection error:", err));
-
-    // Hardcoded string bypasses OneDrive .env file locks entirely
-const fallbackURI = "mongodb://127.0.0.1:27017/king-dine2";
-}
+    try {
+        mongoose.connection.on("connected", () => console.log("MongoDB connected successfully!"));
+        mongoose.connection.on("error", (err) => console.error("Mongoose connection error:", err));
+        
+        const mongoURI = process.env.DATABASE_URI || "mongodb://127.0.0.1:27017/king-dine";
+        await mongoose.connect(mongoURI);
+    } catch (error) {
+        console.error("Could not connect to MongoDB:", error);
+        process.exit(1);
+    }
+};
 
 export default connectDB;
