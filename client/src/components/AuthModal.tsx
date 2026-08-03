@@ -39,7 +39,13 @@ export default function AuthModal() {
         if (isLoginTab) {
             success = await login(email, password);
         } else {
-            success = await register(name, email, password, phone, isOwner ? "owner" : "user");
+            success = await register({ 
+  name, 
+  email, 
+  password, 
+  phone, 
+  role: isOwner ? "owner" : "user" 
+});
         }
 
         setFormLoading(false);

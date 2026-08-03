@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import * as jwt from 'jsonwebtoken';
+import  jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 import bcrypt from 'bcrypt';
 import { AuthRequest } from '../middlewares/auth.js';
@@ -75,46 +75,47 @@ export const registerUser=async (req: Request , res:Response):Promise<void> => {
 // Authenticate a user and get token
 // Post/api/auth/login
 
-export const loginUser=async (req: Request , res:Response):Promise<void> => {
-
-    try {
-         const {email,password}=req.body
-        if( !email || !password ){
-
-            res.status(400).json({message:"Please provide email and password"})
-            return;
-        }
-
-        // Check for user
-        const user=await User.findOne({email})
-        if(!user){
-            res.status(400).json({message:"Invalid credentials"})
-            return;
-        }
-
-
-        // Create User
-        const isMatch=await bcrypt.compare(password,user.password||"")
-
-        if(!isMatch){
-            res.status(401).json({message:"Invalid email or password"})
-            return;}
-
-         res.status(200).json({
-
-                _id:user._id,
-                name:user.name,
-                email:user.email,
-                phone:user.phone,
-                role:user.role,
-                token:generateToken(user._id.toString())
-            })
-      
-    } catch (error:any) {
-         console.log(error);
-        res.status(400).json({message:error.message})
-        
+export const loginUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    console.log("Login request body:", req.body);
+    let { email, password } = req.body;
+    
+    if (!email || !password) {
+      res.status(400).json({ message: "Please provide email and password" });
+      return;
     }
+
+    // Clean up email formatting to strip out accidental spaces
+    email = email.trim().toLowerCase();
+
+    // Check for user
+    const user = await User.findOne({ email });
+    if (!user) {
+      // Changed to 400 to match your current frontend error tracking
+      res.status(400).json({ message: "Invalid credentials" });
+      return;
+    }
+
+    // Compare Password (FIXED: Added '!' check correctly)
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      res.status(400).json({ message: "Invalid email or password" });
+      return;
+    }
+
+    // Success response
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      token: generateToken(user._id.toString())
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
     
 }
 
