@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { assets } from "../../assets/assets.ts";
 import { Search, MapPin, Calendar, Users } from "lucide-react";
 
 export default function Hero() {
@@ -29,7 +30,7 @@ export default function Hero() {
                 <img
                     alt="Elegant Dining Room"
                     className="w-full h-full object-cover brightness-70"
-                    src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkFk2DxEaWDd5TYOGYiHO23HFevXme8zYXAu9932eZWwym6jWlaRMYnEQKI84Y7-VvgS8bKXHsCnmjgkBV8eXgi1vDhbEY4AuhaTlVIhLrB8fqzbD8vyAILPigks8W8eXEaLrw=s1360-w1360-h1020-rw"
+                    src={assets.membership_section_img}
                 />
                 <div className="absolute inset-0 bg-black/30"></div>
             </div>
