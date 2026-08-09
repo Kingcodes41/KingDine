@@ -4,9 +4,11 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import RestaurantCard from "../components/RestaurantCard.tsx";
-import AuthModal from "../components/AuthModal.tsx";
+import api from "../lib/api.ts";
 import { SlidersHorizontal, Search as SearchIcon, X, Check, MapPin, SearchXIcon } from "lucide-react";
-import { dummyRestaurant } from "../assets/assets.ts";
+import AuthModal from "../components/AuthModal.tsx";
+import toast from "react-hot-toast";
+
 
 export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -37,8 +39,17 @@ export default function Search() {
 
     useEffect(() => {
         const fetchRestaurants = async () => {
-            setRestaurants(dummyRestaurant);
-            setLoading(false);
+            try {
+                setLoading(true);
+                const query = searchParams.toString();
+                const res = await api.get(`/restaurant?${query}`);
+                setRestaurants(res.data);
+            } catch (error: any) {
+                toast.error("Failed to fetch restaurants:", error);
+                // Optionally display a toast error here if you have a toast library
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchRestaurants();
@@ -172,12 +183,12 @@ export default function Search() {
                         <div className="space-y-3">
                             <h4 className="text-xs font-medium text-primary tracking-wider uppercase">Cuisine</h4>
                             <div className="space-y-2">
-                                {cuisineOptions.map((c) => {
-                                    const active = cuisinesSelected.includes(c);
-                                    return (
-                                        <button
-                                            key={c}
-                                            onClick={() => handleCuisineToggle(c)}
+                                {cuisineOptions.map((c, index) => {
+                              const active = cuisinesSelected.includes(c);
+                              return (
+                              <button
+                              key={index}
+                             onClick={() => handleCuisineToggle(c)}
                                             className="w-full flex items-center justify-between text-left text-xs text-black/55 hover:text-primary transition-colors cursor-pointer py-1"
                                         >
                                             <span>{c}</span>

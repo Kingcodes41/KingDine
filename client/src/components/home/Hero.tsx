@@ -40,7 +40,7 @@ export default function Hero() {
                     EXQUISITE DINING EXPERIENCES
                 </span>
                 <h1 className="font-display text-4xl md:text-6xl text-white mb-12 max-w-3xl mx-auto leading-[1.15] font-medium tracking-tight drop-shadow-md">
-                    Curation for the Discerning Palette
+                    HOME OF KING'S DINING
                 </h1>
 
                 {/* Search Bar Component */}

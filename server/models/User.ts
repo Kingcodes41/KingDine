@@ -8,7 +8,7 @@ export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
-    phone: string;
+    phone: string, trim: true;
     role: "user"|"admin" | "owner" ;
     createdAt: Date;
     updatedAt: Date;

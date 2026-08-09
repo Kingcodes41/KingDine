@@ -8,7 +8,8 @@ import CuisineBrowse from "../components/home/CuisineBrowse.tsx";
 import TrendingRow from "../components/home/TrendingRow.tsx";
 import MembershipSection from "../components/home/MembershipSection.tsx";
 import NewsletterCTA from "../components/home/NewsletterCTA.tsx";
-import { dummyFeaturedRestaurants } from "../assets/assets.ts";
+import api from "../lib/api.ts";
+import toast from "react-hot-toast";
 
 export default function Home() {
     const [trending, setTrending] = useState<any[]>([]);
@@ -16,9 +17,18 @@ export default function Home() {
 
     useEffect(() => {
         const fetchTrending = async () => {
-            setTrending(dummyFeaturedRestaurants);
+           try {
+            const res =await api.get('/restaurant/featured')
+            setTrending(res.data);
+            
+            
+           } catch (error:any) {
+            toast.error(error?.response?.data?.message || "Error occurred");
+           } finally {
             setLoading(false);
-        };
+           }
+            
+           }
         fetchTrending();
     }, []);
 
