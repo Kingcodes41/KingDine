@@ -49,6 +49,7 @@ export const AppContextProvider = ({ children }: Props) => {
       email,
       password,
     });
+    console.log("LOGIN RESPONSE", res.data)
 
    const { token: userToken, userData } = res.data;
 
