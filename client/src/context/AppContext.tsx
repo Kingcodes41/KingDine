@@ -40,7 +40,7 @@ export const AppContextProvider = ({ children }: Props) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
    
-    const login = async (email: string, password: string): Promise<boolean> => { // LOGIC RESTORED
+    const login = async (email: string, password: string): Promise<boolean> => {
         try {
             setLoading(true);
             const res = await api.post("/auth/login", {
@@ -48,12 +48,12 @@ export const AppContextProvider = ({ children }: Props) => {
                 password,
             });
 
-            const { token: userToken, userData } = res.data;
+            const { token: userToken, userData } = res.data.data;
 
             localStorage.setItem("token", userToken);
             setToken(userToken);
             setUser(userData);
-            setIsAuthenticated(true);
+            setIsAuthenticated(true); // This is correct
 
             toast.success(`Welcome back, ${userData.name}`);
             return true;
@@ -76,7 +76,7 @@ export const AppContextProvider = ({ children }: Props) => {
             setLoading(true);
             const res = await api.post("/auth/register", userData);
 
-            const { token: userToken,userData: userDataReceived } = res.data;
+            const { token: userToken, ...userDataReceived } = res.data;
 
             localStorage.setItem("token", userToken);
             setToken(userToken);
