@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // Forces IPv4 to prevent local DNS bugs
+  baseURL: "https://kingdine-1.onrender.com/api",
+
 });
 
 // Automatically injects the Authorization Bearer Token into headers before requests leave
