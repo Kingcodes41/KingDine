@@ -12,10 +12,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://king-dine.vercel.app"],
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: '*', // Allows all device browser types to securely handshake
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
