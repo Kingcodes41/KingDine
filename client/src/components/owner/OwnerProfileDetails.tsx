@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 import { Upload, Image } from "lucide-react";
 
 
@@ -94,7 +95,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                 formData.append("image", imageFile);
             }
             
-             const res= await api.put("/owner/restaurant", formData, {
+             const res= await axios.put("/owner/restaurant", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
