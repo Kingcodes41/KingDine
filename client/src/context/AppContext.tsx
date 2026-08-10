@@ -40,33 +40,29 @@ export const AppContextProvider = ({ children }: Props) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
    
-    const login = async (email: string, password: string): Promise<boolean> => {
-  try {
-    setLoading(true);
-    
-    // Fixed space after '=' and ensured proper arguments formatting
-    const res = await api.post("/auth/login", {
-      email,
-      password,
-    });
-    console.log("LOGIN RESPONSE", res.data)
+    const login = async (email: string, password: string): Promise<boolean> => { // LOGIC RESTORED
+        try {
+            setLoading(true);
+            const res = await api.post("/auth/login", {
+                email,
+                password,
+            });
 
-   const { token: userToken, userData } = res.data;
+            const { token: userToken, userData } = res.data;
 
-localStorage.setItem("token", userToken);
-setToken(userToken);
-setUser(userData);
-setIsAuthenticated(true);
+            localStorage.setItem("token", userToken);
+            setToken(userToken);
+            setUser(userData);
+            setIsAuthenticated(true);
 
-toast.success(`Welcome back, ${userData.name}`)
-return true;
-
-  } catch (error: any) {
-    toast.error(error?.response?.data?.message || "Error occurred");
-    return false;
-  } finally {
-    setLoading(false);
-  }
+            toast.success(`Welcome back, ${userData.name}`);
+            return true;
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message || "Error occurred");
+            return false;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const register = async (userData: { 
@@ -76,27 +72,24 @@ return true;
   phone?: string; 
   role?: string; 
 }): Promise<boolean> => {
-  try {
-    setLoading(true);
-    
-    // Pass the object directly to the backend API
-    const res = await api.post("/auth/register", userData);
+        try {
+            setLoading(true);
+            const res = await api.post("/auth/register", userData);
 
-    const { token: userToken, ...userDataReceived } = res.data;
+            const { token: userToken, ...userDataReceived } = res.data;
 
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
-    setUser(userDataReceived);
-    setIsAuthenticated(true);
-    toast.success(`Welcome to KingDine Club!`);
-    return true;
-
-  } catch (error: any) {
-    toast.error(error?.response?.data?.message || "Error occurred");
-    return false;
-  } finally {
-    setLoading(false);
-  }
+            localStorage.setItem("token", userToken);
+            setToken(userToken);
+            setUser(userDataReceived);
+            setIsAuthenticated(true);
+            toast.success(`Welcome to KingDine Club!`);
+            return true;
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message || "Error occurred");
+            return false;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const logout = () => {

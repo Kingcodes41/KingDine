@@ -43,7 +43,7 @@ export default function AuthModal() {
                 name,
                 email,
                 password,
-                role: isOwner ? "owner" : "user",
+                role: "owner" 
             };
 
             if (phone && phone.trim() !== "") {
