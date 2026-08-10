@@ -50,14 +50,15 @@ export const AppContextProvider = ({ children }: Props) => {
       password,
     });
 
-    const { token: userToken, ...userData } = res.data;
+   const { token: userToken, userData } = res.data;
 
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
-    setUser(userData);
-    setIsAuthenticated(true);
-    toast.success(`Welcome back, ${userData.name}`);
-    return true;
+localStorage.setItem("token", userToken);
+setToken(userToken);
+setUser(userData);
+setIsAuthenticated(true);
+
+toast.success(`Welcome back, ${userData.name}`)
+return true;
 
   } catch (error: any) {
     toast.error(error?.response?.data?.message || "Error occurred");

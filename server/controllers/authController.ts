@@ -97,25 +97,25 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Compare Password (FIXED: Added '!' check correctly)
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      res.status(400).json({ message: "Invalid credentials" });
-      return;
-    }
+   const isMatch = await bcrypt.compare(password, user.password);
 
-    // Success response
-  // Success response
-        res.status(200).json({
-            success: true,
-            token: generateToken(user._id.toString()),
-            userData: {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                role: user.role
-            }
-        });
+if (!isMatch) {
+  res.status(400).json({ message: "Invalid credentials" });
+  return;
+    } else {
+        // Success response
+            res.status(200).json({
+                success: true,
+                token: generateToken(user._id.toString()),
+                userData: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone,
+                    role: user.role
+                }
+            });
+    }
 
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
