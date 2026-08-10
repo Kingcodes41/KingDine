@@ -48,12 +48,24 @@ export const AppContextProvider = ({ children }: Props) => {
                 password,
             });
 
-            const { token: userToken, userData } = res.data.data;
+            const responseData = res.data.data || res.data;
+            const userToken = responseData.token;
+            const userData = responseData.userData || {
+                _id: responseData._id,
+                name: responseData.name,
+                email: responseData.email,
+                phone: responseData.phone,
+                role: responseData.role,
+            };
+
+            if (!userToken || !userData?.name) {
+                throw new Error("Invalid login response");
+            }
 
             localStorage.setItem("token", userToken);
             setToken(userToken);
             setUser(userData);
-            setIsAuthenticated(true); // This is correct
+            setIsAuthenticated(true);
 
             toast.success(`Welcome back, ${userData.name}`);
             return true;
@@ -77,6 +89,10 @@ export const AppContextProvider = ({ children }: Props) => {
             const res = await api.post("/auth/register", userData);
 
             const { token: userToken, ...userDataReceived } = res.data;
+
+            if (!userToken || !userDataReceived?.name) {
+                throw new Error("Invalid registration response");
+            }
 
             localStorage.setItem("token", userToken);
             setToken(userToken);
