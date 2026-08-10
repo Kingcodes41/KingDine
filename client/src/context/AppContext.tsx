@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const AppContextProvider = ({ children }: Props) => {
-    const [user, setUser] = useState<UserType | null>(null);
+    const [user, setUser] = useState<any>(null);
     const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
     const [loading, setLoading] = useState<boolean>(true);
     const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
