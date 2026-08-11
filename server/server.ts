@@ -18,7 +18,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const port = process.env.PORT || 10000;
+const port = parseInt(process.env.PORT || "10000", 10);
 
 app.use("/api/auth",authRouter);
 app.use("/api/restaurant",restaurantRouter);
@@ -34,18 +34,20 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 const startServer = async () => {
-  // Move the listener up so Render binds to the port immediately
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-
   try {
     await connectDB();
     
     app.get('/', (req: Request, res: Response) => {
       res.send('Server is Live!');
     });
+
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`Server is running on port ${port}`);
+    });
   } catch (error) {
     console.error("Failed to connect to database:", error);
+    process.exit(1);
   }
 };
+
+startServer();
