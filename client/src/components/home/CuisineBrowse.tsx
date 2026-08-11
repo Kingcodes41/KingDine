@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { cuisines } from "../../assets/assets";
+import { cuisines } from "../../assets/assets.ts";
 
 export default function CuisineBrowse() {
     const navigate = useNavigate();

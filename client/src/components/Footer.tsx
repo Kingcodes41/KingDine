@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { bottomLinks, footerSections, socialLinks } from "../assets/assets";
+import { bottomLinks, footerSections, socialLinks } from "../assets/assets.ts";
 
 export default function Footer() {
     return (

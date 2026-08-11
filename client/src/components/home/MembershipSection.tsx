@@ -1,4 +1,4 @@
-import { assets } from "../../assets/assets";
+import { assets } from "../../assets/assets.ts";
 import { BadgeCheck, Armchair } from "lucide-react";
 
 export default function MembershipSection() {
