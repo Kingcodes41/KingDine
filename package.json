@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node server.js",
     "server": "ts-node-dev --respawn --transpile-only server.ts"
   },
   "dependencies": {
