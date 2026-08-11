@@ -61,10 +61,8 @@ export const AppContextProvider = ({ children }: Props) => {
             setLoading(true);
             clearAuthState();
 
-            const res = await api.post("/auth/login", {
-                email,
-                password,
-            });
+            const res = await api.post("/auth/login", { email, password }
+            );
 
             const { token: userToken, ...userData } = res.data as {
                 token: string;
