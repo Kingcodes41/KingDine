@@ -34,20 +34,18 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 const startServer = async () => {
-    try {
-        await connectDB();
+  // Move the listener up so Render binds to the port immediately
+  app.listen(port, () => {
+    console.log(Server is running on port ${port});
+  });
 
-        app.get('/', (req: Request, res: Response) => {
-            res.send('Server is Live!');
-        });
-
-        app.listen(port, () => {
-            console.log(`Server is running at http://localhost:${port}`);
-        });
-    } catch (error) {
-        console.error("Failed to start server:", error);
-        process.exit(1);
-    }
+  try {
+    await connectDB();
+    
+    app.get('/', (req: Request, res: Response) => {
+      res.send('Server is Live!');
+    });
+  } catch (error) {
+    console.error("Failed to connect to database:", error);
+  }
 };
-
-startServer();
