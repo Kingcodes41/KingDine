@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "../lib/api.js";
 import toast from "react-hot-toast";
 
@@ -21,8 +21,7 @@ interface AppContextType {
     isAuthModalOpen: boolean;
     setAuthModalOpen: (open: boolean) => void;
     login: (email: string, password: string) => Promise<boolean>;
-    // register: (name: string, email: string, password: string, phone?: string, role?: string) => Promise<boolean>;
-    register: (userData: { name: string; email: string; password: string; phone?: string; role?: string; }) => Promise<boolean>;
+    register: (userData: { name: string; email: string; password: string; phone?: string; role?: string }) => Promise<boolean>;
     logout: () => void;
 }
 
@@ -32,15 +31,26 @@ interface Props {
     children: React.ReactNode;
 }
 
+const getStoredToken = () => {
+    if (typeof window === "undefined") {
+        return null;
+    }
+
+    return localStorage.getItem("token");
+};
+
 export const AppContextProvider = ({ children }: Props) => {
     const [user, setUser] = useState<UserType | null>(null);
-    const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
+    const [token, setToken] = useState<string | null>(() => getStoredToken());
     const [loading, setLoading] = useState<boolean>(true);
     const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(localStorage.getItem("token")));
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(getStoredToken()));
 
     const clearAuthState = () => {
-        localStorage.removeItem("token");
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("token");
+        }
+
         setToken(null);
         setUser(null);
         setIsAuthenticated(false);
@@ -56,15 +66,25 @@ export const AppContextProvider = ({ children }: Props) => {
                 password,
             });
 
-            const { token: userToken, ...userData } = res.data;
+            const { token: userToken, ...userData } = res.data as {
+                token: string;
+                _id: string;
+                name: string;
+                email: string;
+                phone?: string;
+                role: UserType["role"];
+            };
 
-            if (!userToken || !userData?.email || !userData?.name) {
+            if (!userToken) {
                 throw new Error("Invalid login response");
             }
 
-            localStorage.setItem("token", userToken);
+            if (typeof window !== "undefined") {
+                localStorage.setItem("token", userToken);
+            }
+
             setToken(userToken);
-            setUser(userData as UserType);
+            setUser(userData);
             setIsAuthenticated(true);
             toast.success(`Welcome back, ${userData.name}`);
             return true;
@@ -89,15 +109,25 @@ export const AppContextProvider = ({ children }: Props) => {
             clearAuthState();
 
             const res = await api.post("/auth/register", userData);
-            const { token: userToken, ...userDataReceived } = res.data;
+            const { token: userToken, ...userDataReceived } = res.data as {
+                token: string;
+                _id: string;
+                name: string;
+                email: string;
+                phone?: string;
+                role: UserType["role"];
+            };
 
-            if (!userToken || !userDataReceived?.email || !userDataReceived?.name) {
+            if (!userToken) {
                 throw new Error("Invalid registration response");
             }
 
-            localStorage.setItem("token", userToken);
+            if (typeof window !== "undefined") {
+                localStorage.setItem("token", userToken);
+            }
+
             setToken(userToken);
-            setUser(userDataReceived as UserType);
+            setUser(userDataReceived);
             setIsAuthenticated(true);
             toast.success("Welcome to KingDine Club!");
             return true;
@@ -118,7 +148,6 @@ export const AppContextProvider = ({ children }: Props) => {
     useEffect(() => {
         const loadUser = async () => {
             if (!token) {
-                clearAuthState();
                 setLoading(false);
                 return;
             }
@@ -139,22 +168,21 @@ export const AppContextProvider = ({ children }: Props) => {
         loadUser();
     }, [token]);
 
-  const value: AppContextType = {
-    user,
-    token,
-    loading,
-    isAuthenticated,
-    setIsAuthenticated,
-    isAuthModalOpen,
-    setAuthModalOpen,
-    login,
-    register,
-    logout,
-  };
-    
+    const value: AppContextType = {
+        user,
+        token,
+        loading,
+        isAuthenticated,
+        setIsAuthenticated,
+        isAuthModalOpen,
+        setAuthModalOpen,
+        login,
+        register,
+        logout,
+    };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-}
+};
 
 export const useAppContext = () => {
     const context = useContext(AppContext);

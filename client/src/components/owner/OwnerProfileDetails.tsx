@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 import { Upload, Image } from "lucide-react";
-import { dummyRestaurant } from "../../assets/assets.ts";
+
 
 interface OwnerProfileDetailsProps {
     restaurant: any;
@@ -93,7 +94,14 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
             if (imageFile) {
                 formData.append("image", imageFile);
             }
-            setRestaurant(dummyRestaurant[0]);
+            
+             const res= await axios.put("/owner/restaurant", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            setRestaurant(res.data);
+
             toast.success("Profile details updated successfully!");
         } catch (error: any) {
             toast.error(error?.response?.data?.message || "Update failed");

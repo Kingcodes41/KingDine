@@ -93,7 +93,7 @@ const seedData=async()=>{
     },
     {
         
-        name: "The Burgundry by Chef Stone",
+        name: "Tar Tar",
         slug: "the-burgundry",
         description:
             "An elegant modern French dining destination from Chef Stone. The Burgundry blends refined Burgundy-inspired cuisine with luxurious presentation and a warm, intimate atmosphere, highlighting premium local ingredients and sophisticated wine pairings.",
@@ -101,7 +101,7 @@ const seedData=async()=>{
         priceRange: "$$$$",
         rating: 4.7,
         reviewCount: 205,
-        location: "Central Area, Abuja",
+        location: "Wuse 2, Abuja",
         address: "Central Area, Abuja, Nigeria",
         image: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnywk-Nn65nrFearAljkv0_pEtezhZURXO89pAU1_6XStjf6pxNkl8p9DyXKMeFJxFoJKrhacKIJRUqnuBaUcGmtFsBPBEXFxEF0b6KPIOeCuJxkUoJqc4Fgi9MfwC51o2ogMw2pA=s1360-w1360-h1020-rw",
         chef: "Chef Stone",

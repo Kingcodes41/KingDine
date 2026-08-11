@@ -39,13 +39,18 @@ export default function AuthModal() {
         if (isLoginTab) {
             success = await login(email, password);
         } else {
-            success = await register({ 
-  name, 
-  email, 
-  password, 
-  phone, 
-  role: isOwner ? "owner" : "user" 
-});
+            const registerPayload: any = {
+                name,
+                email,
+                password,
+                role: "owner" 
+            };
+
+            if (phone && phone.trim() !== "") {
+                registerPayload.phone = phone;
+            }
+
+            success = await register(registerPayload);
         }
 
         setFormLoading(false);

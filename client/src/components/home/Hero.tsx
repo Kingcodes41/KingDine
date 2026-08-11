@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { assets } from "../../assets/assets.ts";
 import { Search, MapPin, Calendar, Users } from "lucide-react";
 
 export default function Hero() {
@@ -29,7 +30,7 @@ export default function Hero() {
                 <img
                     alt="Elegant Dining Room"
                     className="w-full h-full object-cover brightness-70"
-                    src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkFk2DxEaWDd5TYOGYiHO23HFevXme8zYXAu9932eZWwym6jWlaRMYnEQKI84Y7-VvgS8bKXHsCnmjgkBV8eXgi1vDhbEY4AuhaTlVIhLrB8fqzbD8vyAILPigks8W8eXEaLrw=s1360-w1360-h1020-rw"
+                    src="https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?q=80&w=2089&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 />
                 <div className="absolute inset-0 bg-black/30"></div>
             </div>
@@ -40,7 +41,7 @@ export default function Hero() {
                     EXQUISITE DINING EXPERIENCES
                 </span>
                 <h1 className="font-display text-4xl md:text-6xl text-white mb-12 max-w-3xl mx-auto leading-[1.15] font-medium tracking-tight drop-shadow-md">
-                    Curation for the Discerning Palette
+                    HOME OF KING'S DINING
                 </h1>
 
                 {/* Search Bar Component */}

@@ -23,14 +23,14 @@ export default function AdminDashboard() {
     const fetchAdminData = async () => {
         try {
             setLoading(true);
-            const [restaurantsRes, statsRes] = await Promise.all([
-                api.get("/admin/restaurants"),
-                api.get("/admin/stats"),
-            ]);
-            setRestaurants(restaurantsRes.data);
-            setStats(statsRes.data);
+            const rRes=await api.get("/admin/restaurants")
+            setRestaurants(rRes.data)
+            const sRes=await api.get("/admin/stats")
+            setStats(sRes.data)
+            
+            
         } catch (error: any) {
-            toast.error(error?.response?.data?.message || "Failed to fetch admin data");
+            toast.error(error?.response?.data?.message || "Failed to retrieve administrator data");
         } finally {
             setLoading(false);
         }
@@ -40,9 +40,16 @@ export default function AdminDashboard() {
         try {
             setBtnLoading(restaurantId);
             await api.put(`/admin/restaurants/${restaurantId}/status`, { status });
-            toast.success(`Restaurant has been ${status}.`);
-            // Refresh data
-            await fetchAdminData();
+            toast.success(`Restaurant has been marked as ${status.toUpperCase()}.`);
+            // Reload local list and stats
+            const rRes = await api.get("/admin/restaurants");
+            setRestaurants(rRes.data);
+
+
+            const sRes=await api.get("/admin/stats")
+            setStats(sRes.data)
+               
+            
         } catch (error: any) {
             toast.error(error?.response?.data?.message || "Failed to update status");
         } finally {

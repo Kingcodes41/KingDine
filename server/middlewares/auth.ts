@@ -1,6 +1,6 @@
 import{NextFunction,Request,Response} from 'express'
-import  {User, IUser } from "../models/User.js"
 import jwt from 'jsonwebtoken';
+import { User, IUser } from "../models/User.js"
 
 
 
@@ -60,6 +60,3 @@ export const adminOnly = (req: AuthRequest, res: Response, next: NextFunction) =
     }
 };
     
-
-
-

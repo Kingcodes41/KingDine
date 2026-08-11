@@ -10,7 +10,8 @@ import Loader from "../components/Loader.tsx";
 import BookingSuccess from "../components/booking/BookingSuccess.tsx";
 import BookingSummary from "../components/booking/BookingSummary.tsx";
 import BookingForm from "../components/booking/BookingForm.tsx";
-import { dummyBookingData, dummyRestaurant } from "../assets/assets.ts";
+import api from "../lib/api.ts";
+
 
 export default function BookingConfirmation() {
     const { slug } = useParams<{ slug: string }>();
@@ -35,21 +36,33 @@ export default function BookingConfirmation() {
     const date = searchParams.get("date") || "";
     const guests = searchParams.get("guests") || "2";
 
-    useEffect(() => {
-        // Prefill form when user details load
-        if (user) {
-            (() => {
-                setName(user.name);
-                setEmail(user.email);
-                if (user.phone) setPhone(user.phone);
-            })();
-        }
-    }, [user]);
-
+    
+        useEffect(() => {
+  // Prefill form when user details load
+  if (user) {
+    setName(user.name || "");
+    setEmail(user.email || "");
+    if (user.phone) {
+      setPhone(user.phone);
+    }
+  }
+}, [user]); 
     useEffect(() => {
         const fetchRestaurant = async () => {
-            setRestaurant(dummyRestaurant.find((r) => r.slug === slug));
+          try {
+            setLoading(true);
+            const res=await api.get(`/restaurant/${slug}`)
+            setRestaurant(res.data)
+
+
+            
+          } catch (error:any) {
+            toast.error(error?.response?.data?.message|| error?.message);
+            navigate("/");
+            
+          }finally{
             setLoading(false);
+          }
         };
 
         if (slug) {
@@ -73,8 +86,20 @@ export default function BookingConfirmation() {
 
         try {
             setConfirming(true);
-            setConfirmedBooking(dummyBookingData);
-            toast.success("Reservation confirmed!");
+           // Explicitly construct the payload without spreading the whole object blindly
+const res = await api.post("/booking", {
+  restaurantId: restaurant?._id || restaurant?.id || slug, // Use whichever identifier matches your backend scheme
+  date,
+  time: slot,
+  guest: guests,
+  name,
+  email,
+  phone,
+  occasion: occasion.trim() || "None",
+  specialRequests: specialRequests.trim() || "None"
+});
+
+            setConfirmedBooking(res.data)
         } catch (error: any) {
             toast.error(error?.response?.data?.message || error?.message);
         } finally {
