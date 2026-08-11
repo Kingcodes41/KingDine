@@ -39,12 +39,18 @@ export const AppContextProvider = ({ children }: Props) => {
     const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-   
+    const clearAuthState = () => {
+        localStorage.removeItem("token");
+        setToken(null);
+        setUser(null);
+        setIsAuthenticated(false);
+    };
+
     const login = async (email: string, password: string): Promise<boolean> => {
   try {
     setLoading(true);
-    
-    // Fixed space after '=' and ensured proper arguments formatting
+    clearAuthState();
+
     const res = await api.post("/auth/login", {
       email,
       password,
@@ -52,14 +58,19 @@ export const AppContextProvider = ({ children }: Props) => {
 
     const { token: userToken, ...userData } = res.data;
 
+    if (!userToken || !userData?.email || !userData?.name) {
+      throw new Error("Invalid login response");
+    }
+
     localStorage.setItem("token", userToken);
     setToken(userToken);
-    setUser(userData);
+    setUser(userData as UserType);
     setIsAuthenticated(true);
     toast.success(`Welcome back, ${userData.name}`);
     return true;
 
   } catch (error: any) {
+    clearAuthState();
     toast.error(error?.response?.data?.message || "Error occurred");
     return false;
   } finally {
@@ -76,20 +87,25 @@ export const AppContextProvider = ({ children }: Props) => {
 }): Promise<boolean> => {
   try {
     setLoading(true);
-    
-    // Pass the object directly to the backend API
+    clearAuthState();
+
     const res = await api.post("/auth/register", userData);
 
     const { token: userToken, ...userDataReceived } = res.data;
 
+    if (!userToken || !userDataReceived?.email || !userDataReceived?.name) {
+      throw new Error("Invalid registration response");
+    }
+
     localStorage.setItem("token", userToken);
     setToken(userToken);
-    setUser(userDataReceived);
+    setUser(userDataReceived as UserType);
     setIsAuthenticated(true);
     toast.success(`Welcome to KingDine Club!`);
     return true;
 
   } catch (error: any) {
+    clearAuthState();
     toast.error(error?.response?.data?.message || "Error occurred");
     return false;
   } finally {
@@ -98,16 +114,14 @@ export const AppContextProvider = ({ children }: Props) => {
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-        setIsAuthenticated(false);
+        clearAuthState();
         window.location.href = "/";
     };
 
    useEffect(() => {
     const loadUser = async () => {
       if (!token) {
+        clearAuthState();
         setLoading(false);
         return;
       }
@@ -115,14 +129,11 @@ export const AppContextProvider = ({ children }: Props) => {
       try {
         setLoading(true);
         const res = await api.get("/auth/me");
-        setUser(res.data);
+        setUser(res.data as UserType);
         setIsAuthenticated(true);
       } catch (error) {
         console.error("Failed to load user:", error);
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-        setIsAuthenticated(false);
+        clearAuthState();
       } finally {
         setLoading(false);
       }
