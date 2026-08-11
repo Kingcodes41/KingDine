@@ -34,102 +34,110 @@ interface Props {
 
 export const AppContextProvider = ({ children }: Props) => {
     const [user, setUser] = useState<UserType | null>(null);
-    const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+    const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
     const [loading, setLoading] = useState<boolean>(true);
     const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(localStorage.getItem("token")));
 
-   
-    const login = async (email: string, password: string): Promise<boolean> => {
-  try {
-    setLoading(true);
-    
-    // Fixed space after '=' and ensured proper arguments formatting
-    const res = await api.post("/auth/login", {
-      email,
-      password,
-    });
-
-    const { token: userToken, ...userData } = res.data;
-
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
-    setUser(userData);
-    setIsAuthenticated(true);
-    toast.success(`Welcome back, ${userData.name}`);
-    return true;
-
-  } catch (error: any) {
-    toast.error(error?.response?.data?.message || "Error occurred");
-    return false;
-  } finally {
-    setLoading(false);
-  }
+    const clearAuthState = () => {
+        localStorage.removeItem("token");
+        setToken(null);
+        setUser(null);
+        setIsAuthenticated(false);
     };
 
-    const register = async (userData: { 
-  name: string; 
-  email: string; 
-  password: string; 
-  phone?: string; 
-  role?: string; 
-}): Promise<boolean> => {
-  try {
-    setLoading(true);
-    
-    // Pass the object directly to the backend API
-    const res = await api.post("/auth/register", userData);
+    const login = async (email: string, password: string): Promise<boolean> => {
+        try {
+            setLoading(true);
+            clearAuthState();
 
-    const { token: userToken, ...userDataReceived } = res.data;
+            const res = await api.post("/auth/login", {
+                email,
+                password,
+            });
 
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
-    setUser(userDataReceived);
-    setIsAuthenticated(true);
-    toast.success(`Welcome to KingDine Club!`);
-    return true;
+            const { token: userToken, ...userData } = res.data;
 
-  } catch (error: any) {
-    toast.error(error?.response?.data?.message || "Error occurred");
-    return false;
-  } finally {
-    setLoading(false);
-  }
+            if (!userToken || !userData?.email || !userData?.name) {
+                throw new Error("Invalid login response");
+            }
+
+            localStorage.setItem("token", userToken);
+            setToken(userToken);
+            setUser(userData as UserType);
+            setIsAuthenticated(true);
+            toast.success(`Welcome back, ${userData.name}`);
+            return true;
+        } catch (error: any) {
+            clearAuthState();
+            toast.error(error?.response?.data?.message || "Error occurred");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const register = async (userData: {
+        name: string;
+        email: string;
+        password: string;
+        phone?: string;
+        role?: string;
+    }): Promise<boolean> => {
+        try {
+            setLoading(true);
+            clearAuthState();
+
+            const res = await api.post("/auth/register", userData);
+            const { token: userToken, ...userDataReceived } = res.data;
+
+            if (!userToken || !userDataReceived?.email || !userDataReceived?.name) {
+                throw new Error("Invalid registration response");
+            }
+
+            localStorage.setItem("token", userToken);
+            setToken(userToken);
+            setUser(userDataReceived as UserType);
+            setIsAuthenticated(true);
+            toast.success("Welcome to KingDine Club!");
+            return true;
+        } catch (error: any) {
+            clearAuthState();
+            toast.error(error?.response?.data?.message || "Error occurred");
+            return false;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-        setIsAuthenticated(false);
+        clearAuthState();
         window.location.href = "/";
     };
 
-   useEffect(() => {
-    const loadUser = async () => {
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-      
-      try {
-        setLoading(true);
-        const res = await api.get("/auth/me");
-        setUser(res.data);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Failed to load user:", error);
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        const loadUser = async () => {
+            if (!token) {
+                clearAuthState();
+                setLoading(false);
+                return;
+            }
 
-    loadUser();
-  }, [token]);
+            try {
+                setLoading(true);
+                const res = await api.get("/auth/me");
+                setUser(res.data as UserType);
+                setIsAuthenticated(true);
+            } catch (error) {
+                console.error("Failed to load user:", error);
+                clearAuthState();
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadUser();
+    }, [token]);
 
   const value: AppContextType = {
     user,
