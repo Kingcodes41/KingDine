@@ -36,7 +36,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 const startServer = async () => {
   // Move the listener up so Render binds to the port immediately
   app.listen(port, () => {
-    console.log(Server is running on port ${port});
+    console.log(`Server is running on port ${port}`);
   });
 
   try {
