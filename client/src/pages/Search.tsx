@@ -139,7 +139,7 @@ export default function Search() {
                             <MapPin size={16} className="absolute left-2.5 top-2 text-black/55/70" />
                             <input
                                 type="text"
-                                placeholder="Location..."
+                                placeholder="Lagos or Abuja"
                                 value={tempLocation}
                                 onChange={(e) => setTempLocation(e.target.value)}
                                 className="w-full pl-9 pr-3 py-2 text-xs border border-outline-variant/40 rounded-md focus:border-secondary focus:outline-none bg-surface-container-low/30"

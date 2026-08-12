@@ -66,7 +66,7 @@ export default function Hero() {
                         <MapPin className="text-outline-variant mr-3 shrink-0" size={18} />
                         <input
                             className="w-full bg-transparent border-none focus:outline-none text-sm text-on-surface placeholder:text-black/55/70"
-                            placeholder="Location (e.g. Manhattan)"
+                            placeholder="Location (e.g. Lagos or Abuja)"
                             type="text"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
