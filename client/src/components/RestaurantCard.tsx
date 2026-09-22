@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Star, MapPinIcon } from "lucide-react";
-import { dummyRating } from "../assets/assets.ts";
+import { dummyRating, resolveRestaurantImage } from "../assets/assets.ts";
 
 interface RestaurantCardProps {
     restaurant: {
@@ -35,7 +35,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
             {/* Image & Badges */}
             <Link to={`/restaurant/${restaurant.slug}`} className="relative h-60 overflow-hidden block">
                 <img
-                    src={restaurant.image}
+                    src={resolveRestaurantImage(restaurant.slug, restaurant.image)}
                     alt={restaurant.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"

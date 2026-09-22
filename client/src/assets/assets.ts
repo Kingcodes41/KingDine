@@ -21,6 +21,20 @@ export const assets = {
     faviconSvg,
 };
 
+const localRestaurantImages: Record<string, string> = {
+    "oja-lagos": "/restaurant_5.png",
+    "the-burgundry": "/restaurant_1.png",
+    "cilantro-abuja": "/restaurant_2.jpg",
+    "above-lifestyle": "/restaurant_3.jpg",
+    "kapadoccia-the-cave": "/restaurant_4.png",
+    see: "/restaurant_6.png",
+    "walis-suites": "/restaurant_7.png",
+};
+
+export const resolveRestaurantImage = (slug?: string, image?: string) => {
+    return (slug && localRestaurantImages[slug]) || image || assets.default_restaurant_img;
+};
+
 export const dummyReviews = [
     {
         _id: "dummy-rev-1",

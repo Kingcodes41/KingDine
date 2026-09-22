@@ -7,7 +7,7 @@ import { Restaurant } from "./models/Restaurant.js";
 import { Booking } from "./models/Booking.js";
 
 
-const MONGO_URI=process.env.DATABASE_URI ||"mongodb://127.0.0.1:27017/king-dine";
+const MONGO_URI = "mongodb+srv://abimajegideonchubiojo_db_user:Declanrice41@cluster0.rjlgw4u.mongodb.net/king-dine?retryWrites=true&w=majority&appName=Cluster0";
 
 
 

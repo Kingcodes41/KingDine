@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Star } from "lucide-react";
-import { dummyRating, dummyReviewCount } from "../../assets/assets.ts";
+import { dummyRating, dummyReviewCount, resolveRestaurantImage } from "../../assets/assets.ts";
 
 interface RestaurantHeroProps {
     restaurant: any;
@@ -11,7 +11,7 @@ export default function RestaurantHero({ restaurant }: RestaurantHeroProps) {
 
     return (
         <section className="relative h-[480px] w-full overflow-hidden text-left animate-in fade-in duration-500">
-            <img src={restaurant.image} alt={restaurant.name} className="w-full h-full object-cover brightness-[0.7]" />
+            <img src={resolveRestaurantImage(restaurant.slug, restaurant.image)} alt={restaurant.name} className="w-full h-full object-cover brightness-[0.7]" />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
 
             {/* Hero Overlay Info */}

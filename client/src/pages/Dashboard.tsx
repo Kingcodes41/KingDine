@@ -9,6 +9,7 @@ import AuthModal from "../components/AuthModal.tsx";
 import { CalendarIcon, UsersIcon, ClockIcon, MapPinIcon, CalendarDaysIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import api from "../lib/api.ts";
+import { resolveRestaurantImage } from "../assets/assets.ts";
 
 export default function Dashboard() {
     const { user } = useAppContext();
@@ -134,7 +135,7 @@ export default function Dashboard() {
                                             <div className="flex gap-4">
                                                 <div className="w-16 h-16 rounded-sm overflow-hidden shrink-0 bg-surface">
                                                     <img
-                                                        src={b.restaurant?.image}
+                                                        src={resolveRestaurantImage(b.restaurant?.slug, b.restaurant?.image)}
                                                         alt={b.restaurant?.name}
                                                         className="w-full h-full object-cover"
                                                     />
