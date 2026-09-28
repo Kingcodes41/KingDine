@@ -59,7 +59,7 @@ export const getOwnersRestaurant= async (req: AuthRequest, res:Response):Promise
 // POST/api/restaurant/restaurant
 
 
-export const createOwnersRestaurant= async (req: AuthRequest, res:Response):Promise<void>=>{
+export const createOwnersRestaurant = async (req: any, res: Response) => {
     try{
 
         const existing=await Restaurant.findOne({owner:req.user?._id});
@@ -149,7 +149,7 @@ if(req.file){
 // PUT/api/restaurant/restaurant
 
 
-export const updateOwnerRestaurant= async (req: AuthRequest, res:Response):Promise<void>=>{
+export const updateOwnerRestaurant = async (req: any, res: Response) =>{
     try{
 
         const restaurant=await Restaurant.findOne({owner:req.user?._id});
